@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Week 3 Day 2 Assignment | JavaScript Plant Manager</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <!-- Add a form with fields for the plant's name, species, and water schedule. -->
+    <form id="plant-form">
+        <!-- First Text Input -->
+        <div class="form-group">
+            <label for="name">
+                Plant Name:
+                <input type="text" name="name" placeholder="Enter plant name" aria-placeholder="Enter plant name">
+            </label>
+        </div>
+
+        <!-- Second Text Input -->
+        <div class="form-group">
+            <label for="species">
+                Species:
+                <input type="text" name="species" placeholder="Enter plant species"
+                    aria-placeholder="Enter plant species">
+            </label>
+        </div>
+
+        <!-- Third Text Input -->
+        <div class="form-group">
+            <label for="schedule">
+                Watering Schedule:
+                <input type="text" name="waterSchedule" placeholder="Enter plant watering schedule"
+                    aria-placeholder="Enter plant watering schedule">
+            </label>
+        </div>
+
+        <!-- Include a submit button for adding a new plant. -->
+        <button>Add Plant</button>
+    </form>
+
+    <h3>List of Plants</h3>
+
+    <!-- Add an area (e.g., an unordered list) to display the list of plants. -->
+    <ul id="plantList">
+
+    </ul>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

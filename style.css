@@ -1,0 +1,35 @@
+body{
+    font-family: Arial, Helvetica, sans-serif;
+    margin: 20px;
+
+}
+
+.form-group{
+    margin-bottom: 10px;
+}
+
+label{
+    display: block;
+}
+
+input[type="text"]{
+    width: 200px;
+    padding: 5px;
+}
+
+button{
+    padding: 5px 10px;
+    margin-top: 10px;
+    border-radius: 5px;
+}
+
+ul{
+    list-style-type: none;
+}
+
+li{
+    margin-bottom: 5px;
+    border-bottom: solid 1px gray;
+    padding-left: 5px;
+    width: 400px;
+}
