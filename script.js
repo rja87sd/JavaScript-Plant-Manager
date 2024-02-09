@@ -1,62 +1,66 @@
 "use strict";
 
-// Start with a hardcoded plant object, similar to the exampleBook in the demo.
-const examplePlant = {
-  name: "Rosemary",
-  species: "Salvia rosmarius",
-  waterSchedule: "Mon, Thurs, Sat",
-};
-
 // Create an array to store plant objects.
-const plants = [];
-
-// Add your hardcoded plant to this array.
-plants.push(examplePlant);
+let plants = [];
 console.log(plants);
 
-// Write a function displayPlants() that will display each plant in the array as an item in an unordered list on the webpage.
+// Function to display plants on the webpage
 function displayPlants() {
   const plantList = document.getElementById("plantList");
   plantList.innerHTML = "";
 
-  plants.forEach((plant) => {
+  // Loop through each plant and create a list item with details and a remove button
+  plants.forEach((plant, i) => {
     const li = document.createElement("li");
 
     li.innerHTML = `<p>Name: ${plant.name}</p> 
     <p>Species: ${plant.species}</p>
-    <p>Watering Schedule: ${plant.waterSchedule}</p>`;
+    <p>Watering Schedule: ${plant.waterSchedule}</p>
+    <button id="remBtn${i}">Remove Plant</button>`;
+
+    li.id = "li" + i;
     plantList.appendChild(li);
+
+    // Add event listener to remove button to remove the plant from the list and update localStorage
+    document.querySelector(`#remBtn${i}`).addEventListener("click", () => {
+      document.querySelector(`#li` + i).remove();
+      let newPlants = plants.splice(i, 1);
+      localStorage.setItem("plants", JSON.stringify(plants));
+    });
   });
 }
 
-// Manually invoke displayPlants() to test displaying the hardcoded plant.
+// Load plants from localStorage or initialize an empty array if no plants are saved
+let rawPlants = localStorage.getItem("plants");
+plants = JSON.parse(rawPlants) || [];
+
+// Manually invoke displayPlants() to display the plants initially
 displayPlants();
 
-// Write a function addPlant(name, species, waterSchedule) that adds a new plant object to the array and updates the display.
+// Function to add a new plant to the array and update the display
 function addPlant(name, species, waterSchedule) {
   const newPlant = { name, species, waterSchedule };
   plants.push(newPlant);
+
+  // Save the updated plants array to localStorage
+  localStorage.setItem("plants", JSON.stringify(plants));
 }
 
-// Test addPlant function by manually adding a plant and invoking displayPlants().
-addPlant("Peppermint", "Mentha piperita L.", "Mon, Wed, Sat");
-displayPlants();
-
-const plantForm = document.getElementById("plant-form");
-
+// Function to handle form submission and add a new plant
 function addPlantFromForm(event) {
-  // Ensure the form prevents the default submission action and clears its fields after adding a plant.
-  event.preventDefault();
+  event.preventDefault(); // Prevent form submission
 
+  // Get values from the form fields
   const name = plantForm.name.value;
   const species = plantForm.species.value;
   const waterSchedule = plantForm.waterSchedule.value;
 
+  // Add the new plant, update display, and reset the form
   addPlant(name, species, waterSchedule);
   displayPlants();
-  // Ensure the form prevents the default submission action and clears its fields after adding a plant.
   plantForm.reset();
 }
 
-// Add an event listener to the form to handle submissions using the addPlant function.
+// Add an event listener to the form to handle submissions
+const plantForm = document.getElementById("plant-form");
 plantForm.addEventListener("submit", addPlantFromForm);
