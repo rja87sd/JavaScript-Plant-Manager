@@ -48,19 +48,65 @@ function addPlant(name, species, waterSchedule) {
 
 // Function to handle form submission and add a new plant
 function addPlantFromForm(event) {
-  event.preventDefault(); // Prevent form submission
+  event.preventDefault(); // Prevent page refresh
 
   // Get values from the form fields
-  const name = plantForm.name.value;
-  const species = plantForm.species.value;
+  const plantName = plantForm.name.value;
+  const plantSpecies = plantForm.species.value;
   const waterSchedule = plantForm.waterSchedule.value;
 
   // Add the new plant, update display, and reset the form
-  addPlant(name, species, waterSchedule);
+  addPlant(plantName, plantSpecies, waterSchedule);
   displayPlants();
   plantForm.reset();
 }
 
 // Add an event listener to the form to handle submissions
 const plantForm = document.getElementById("plant-form");
-plantForm.addEventListener("submit", addPlantFromForm);
+
+// Form Validation
+// plantForm.addEventListener("submit", (event) => {
+//   const plantName = plantForm.name.value;
+//   if (plantName.length < 5 || plantName.length > 30) {
+//     alert("Plant names must be between 5 and 30 characters long.");
+//     return;
+//   }
+// });
+
+// plantForm.addEventListener("submit", (event) => {
+//   const plantSpecies = plantForm.species.value;
+//   if (plantSpecies.length < 5 || plantSpecies.length > 30) {
+//     alert("Plant species must be between 5 and 30 characters long.");
+//     return;
+//   }
+// });
+
+// plantForm.addEventListener("submit", (event) => {
+//   const waterSchedule = plantForm.waterSchedule.value;
+//   if (waterSchedule.length < 3 || waterSchedule.length > 33) {
+//     alert("Water schedules must be between 3 and 27 characters long.");
+//     return;
+//   }
+// });
+
+// Had trouble with putting the above event listeners into one code block. Ran the code through chatGPT. Results below.
+plantForm.addEventListener("submit", (event) => {
+  event.preventDefault(); // Prevent form submission
+
+  // Get form input values
+  const plantName = plantForm.name.value;
+  const plantSpecies = plantForm.species.value;
+  const waterSchedule = plantForm.waterSchedule.value;
+
+  // Perform validation for each input field
+  if (plantName.length < 5 || plantName.length > 30) {
+    alert("Plant names must be between 5 and 30 characters long.");
+  } else if (plantSpecies.length < 5 || plantSpecies.length > 30) {
+    alert("Plant species must be between 5 and 30 characters long.");
+  } else if (waterSchedule.length < 3 || waterSchedule.length > 33) {
+    alert("Water schedules must be between 3 and 33 characters long.");
+  } else {
+    // If all validations pass, submit the form
+    addPlantFromForm(event);
+  }
+});
